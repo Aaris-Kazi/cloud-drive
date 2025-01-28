@@ -1,0 +1,12 @@
+.container-fluid.navbar {
+    justify-content: start;
+}
+
+.navbar-toggler.button {
+    margin-right: 5%;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}

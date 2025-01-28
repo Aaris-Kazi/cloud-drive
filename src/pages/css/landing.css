@@ -1,0 +1,162 @@
+.card.landing {
+    border: none;
+}
+
+.img-fluid.landing {
+    width: 100%;
+}
+
+.btn.btn-light.banner-button {
+    border: 2px solid black;
+}
+
+.col-6.bottom-banner {
+    margin-top: 15px;
+}
+
+button.accordion-button {
+    background-color: white;
+}
+
+.accordion-header {
+    background-color: white;
+}
+
+.accordion.banner {
+    background-color: white;
+}
+
+.accordion-item {
+    background-color: white;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 0px;
+}
+
+
+
+
+
+@media (max-width: 600px) {
+    .card.landing {
+        max-width: 840px;
+    }
+
+    .row.banner {
+        background-image: url('https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/305616-hero-banner-bg-1600X580-desktop?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=2000&hei=725&qlt=100&fmt=png-alpha&fit=constrain');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 99vw;
+        height: 17vh;
+        display: flex;
+        justify-content: center;
+    
+    }
+
+    .banner-button {
+        padding: 12px;
+        width: -webkit-fill-available;
+    }
+
+    .col-3.banner-buttons-holder {
+        width: 100%;
+        padding: 4px;
+        margin: 0px;
+    }
+
+    .col.banner-buttons-holder {
+        width: 100%;
+        padding: 4px;
+        margin: 0px;
+    }
+
+    .btn.btn-dark.banner-button {
+        max-width: 100%;
+    }
+
+    .bottom-banner {
+        color: black;
+        margin: 0px;
+        margin-top: 10px;
+        margin-right: 15px;
+        padding: 0px;
+    }
+
+    .row.padding-top-bottom-landing {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    
+}
+
+@media (min-width: 601px) and (max-width: 2000px) {
+    .row.signin {
+        padding-top: 72px;
+        padding-bottom: 72px;
+    }
+
+    .card.landing {
+        max-width: 542px;
+        position: absolute;
+        bottom: 260px;
+        left: 120px;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .row.banner {
+        background-image: url('https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/305616-hero-banner-bg-1600X580-desktop?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=2000&hei=725&qlt=100&fmt=png-alpha&fit=constrain');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 98.9vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+    
+    }
+
+    .banner-button {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .col-3.banner-buttons-holder {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .col.banner-buttons-holder {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .bottom-banner {
+        color: black;
+        margin: 0px;
+        margin-top: 10px;
+        margin-right: 5px;
+        padding: 0px;
+    }
+
+    .accordion.banner {
+        max-width: 289px;
+        background-color: white;
+    }
+
+    .accordion-button {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+
+    .padding-top-bottom-landing {
+        padding-top: 72px;
+        padding-bottom: 72px;
+    }
+    
+    
+    
+}

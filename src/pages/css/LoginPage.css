@@ -1,0 +1,74 @@
+.container.loginPage {
+    justify-content: center;
+    background-color: rgb(242, 242, 242);
+    background-image: url('https://logincdn.msftauth.net/shared/5/images/2_bc3d32a696895f78c19d.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+}
+
+.secondary-content {
+    margin-bottom: 16px;
+    margin-left: 4px;
+    font-size: 0.8125rem;
+}
+
+
+@media (max-width: 600px) {
+    .container.login {
+        margin-left: auto;
+        margin-right: auto;
+        background-color: white;
+        margin-top: 90%;
+        min-width: 300px;
+        max-height: 400px;
+        padding: 3%;
+    }
+
+    .container.loginPage {
+        display: flex;
+        height: 100vh;
+    }
+
+    .login-form {
+        margin-bottom: 4%;
+    }
+
+    .btn.btn-primary.login-form {
+        margin-left: 75%;
+    }
+}
+
+
+@media (min-width: 601px) and (max-width: 2000px) {
+    .container.login {
+        margin-top: 12%;
+        padding: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 338px;
+        max-width: 440px;
+        background-color: white;
+        
+    }
+
+    .container.loginPage {
+        display: block;
+        max-width: 100%;
+        height: 100vh;
+    }
+
+    .col.login {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .login-form {
+        margin-bottom: 2%;
+    }
+
+    .btn.btn-primary.login-form {
+        margin-left: 82%;
+    }
+
+}
