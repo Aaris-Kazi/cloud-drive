@@ -34,10 +34,14 @@ const RegisterPage = () => {
                                     <div className="row"><span className="h4">Create account</span></div>
                                 </div>
                                 <div className="row">
+                                <div className='alert alert-danger' role='alert'>
+                                        User already exist
+                                        <button type="button" className='margin-left btn-close'  data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
                                     <form onSubmit={submittingForm}>
-                                        <input className='form-control login-form' type="text" name="" id="" placeholder='username' />
-                                        <input className='form-control login-form' type="email" name="" id="" placeholder='someone@example.com' onChange={(e) => setEmail(e.target.value)} />
-                                        <input className='form-control login-form' type="password" name="" id="" placeholder='password' />
+                                        <input className='form-control login-form' type="text" name="username" id="username" placeholder='username' />
+                                        <input className='form-control login-form' type="email" name="email" id="email" placeholder='someone@example.com' onChange={(e) => setEmail(e.target.value)} />
+                                        <input className='form-control login-form' type="password" name="password" id="password" placeholder='password' />
                                         <button type="submit" className='btn btn-primary login-form'>Next</button>
                                     </form>
                                 </div>

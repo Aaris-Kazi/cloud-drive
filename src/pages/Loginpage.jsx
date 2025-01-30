@@ -34,9 +34,13 @@ const Loginpage = () => {
                                     <div className="row"><span className="h4">Sign in</span></div>
                                 </div>
                                 <div className="row">
+                                    <div className='alert alert-danger' role='alert'>
+                                        Invalid username or password
+                                        <button type="button" className='margin-left btn-close'  data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
                                     <form action="" method="post">
-                                        <input className='form-control login-form' type="email" name="" id="" placeholder='someone@example.com' value={email} onChange={(e)=> setEmail(e.target.email)} />
-                                        <input className='form-control login-form' type="password" name="" id="" placeholder='password' />
+                                        <input className='form-control login-form' type="email" name="email" id="email" placeholder='someone@example.com' value={email} onChange={(e)=> setEmail(e.target.email)} />
+                                        <input className='form-control login-form' type="password" name="password" id="password" placeholder='password' />
                                         <div className='secondary-content'>
                                             No account? <Link to={'/register'}>Create one!</Link>
                                         </div>
