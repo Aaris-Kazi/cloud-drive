@@ -43,7 +43,7 @@
     }
 
     .alert.alert-danger {
-        max-height: 24px;
+        max-height: 54px;
         font-size: 18px;
         padding: 0px;
         display: flex;
