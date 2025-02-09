@@ -3,8 +3,10 @@ import "./css/HomePage.css"
 import HomeNavBar from '../components/HomeNavBar';
 import HomeNavStickBar from '../components/HomeNavStickBar';
 import RenderPanel from '../components/RenderPanel';
+import LoginRedirect from '../components/redirects/LoginRedirect';
 
 const HomePage = () => {
+    LoginRedirect();
     const [activePanel, setActivePanel] = useState('home');
 
     return (
