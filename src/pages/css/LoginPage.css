@@ -17,6 +17,10 @@
     align-self: center;
 }
 
+.loader {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 @media (max-width: 600px) {
     .container.login {

@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 import "./css/LoginPage.css";
 import { create } from "../utils/webclient";
 import ErrorComponent from "../components/ErrorComponent";
+import Loader from "../components/Loader";
 
 const Loginpage = () => {
     const location = useLocation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loader, setLoader] = useState(false);
 
     const navigate = useNavigate();
 
@@ -26,7 +28,9 @@ const Loginpage = () => {
             Controller method to control route
         */
         e.preventDefault();
+        setLoader(true);
         try {
+
             const res = await create("/auth/login/", {
                 email: email,
                 password: password
@@ -44,6 +48,7 @@ const Loginpage = () => {
             console.log(exception);
             setError(exception);
         }
+        setLoader(false);
     };
 
     return (
@@ -100,9 +105,16 @@ const Loginpage = () => {
                                         <button
                                             type="submit"
                                             className="btn btn-primary login-form"
+                                            disabled={loader}
                                         >
                                             Next
                                         </button>
+
+                                        {loader && (
+                                            <div className="row loader">
+                                                <Loader />
+                                            </div>
+                                        )}
                                     </form>
                                 </div>
                             </div>
