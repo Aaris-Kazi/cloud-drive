@@ -7,8 +7,11 @@ import "./css/LoginPage.css";
 import { create } from "../utils/webclient";
 import ErrorComponent from "../components/ErrorComponent";
 import Loader from "../components/Loader";
+import HomeRedirect from "../components/HomeRedirect";
 
 const Loginpage = () => {
+    HomeRedirect();
+    
     const location = useLocation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

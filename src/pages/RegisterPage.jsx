@@ -6,8 +6,10 @@ import "./css/LoginPage.css";
 import { create } from "../utils/webclient";
 import ErrorComponent from "../components/ErrorComponent";
 import Loader from "../components/Loader";
+import HomeRedirect from "../components/HomeRedirect";
 
 const RegisterPage = () => {
+    HomeRedirect();
     const [username, setUsername] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
