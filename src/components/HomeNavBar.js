@@ -55,7 +55,7 @@ function HomeNavBar({setActivePanel}) {
                     <Link to={''} className='nav-link active add' onClick={togglePopover}><IoIosAddCircle className='add-button' /></Link>
                     {showPopover && (<AddPopOver />)}
                 </li>
-                <li className='nav-item'>
+                <li className='nav-item' onClick={() => setActivePanel("home")}>
                     <Link to={''} className='nav-link active'><IoMdHome /></Link>
                 </li>
                 <li className='nav-item' onClick={() => setActivePanel("files")}>
@@ -84,7 +84,7 @@ function HomeNavBar({setActivePanel}) {
                     <Link to={''} className='nav-link active' onClick={togglePopover}><IoIosAddCircle className='add-button' /></Link>
                     {showPopover && (<AddPopOver />)}
                 </li>
-                <li className='nav-item'>
+                <li className='nav-item' onClick={() => setActivePanel("home")} >
                     <Link to={''} className='nav-link active'><IoMdHome /> Home</Link>
                 </li>
                 <li className='nav-item'  onClick={() => setActivePanel("files")}>
