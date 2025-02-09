@@ -34,6 +34,7 @@ const Loginpage = () => {
 
             if (res.status === 200) {
                 localStorage.setItem("cloud_drive_username", res.data.username);
+                localStorage.setItem("cloud_drive_email", email);
                 localStorage.setItem("cloud_drive_access_token", res.data.access_token);
                 navigate("/home");
             } else {
