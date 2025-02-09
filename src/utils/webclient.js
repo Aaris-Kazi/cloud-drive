@@ -7,7 +7,7 @@ const apiClient = axios.create({
   timeout: 5000
 })
 
-export const create = async (endpoint, props) =>  {
+export const create = async (endpoint, props) => {
   /*
    * This method allows to post  API
    */
