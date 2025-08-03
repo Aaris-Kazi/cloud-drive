@@ -3,6 +3,7 @@ import Loader from "../Loader";
 import { FcFile, FcFolder } from "react-icons/fc";
 import { createPost, fetchParams } from "../../utils/webclient";
 import NewFolderPopOver from "../NewFolderPopOver";
+import config from "../../utils/config";
 
 const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
     const [loader, setLoader] = useState(false);
@@ -12,12 +13,10 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
     const [dataFolder, setdataFolder] = useState([]);
 
     const handleSubmit = async (value) => {
-        console.log('User entered:', value);
-        // You can make API calls here
         setShowPopup(false);
         setdataFolder(prev => [...prev, value]);
 
-        const access_token = localStorage.getItem("cloud_drive_access_token");
+        const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
 
         const headers = {
             'Content-Type': 'application/json',
@@ -30,7 +29,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
 
         try {
             const res = await createPost("/api/v1/directory/", payload, headers);
-            if (res.status === 200) {
+            if (res.status === config.OK_STATUS) {
                 setError("");
             } else {
                 setError(res.message);
@@ -42,7 +41,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
 
     useEffect(() => {
         const getFiles = async () => {
-            const access_token = localStorage.getItem("cloud_drive_access_token");
+            const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
 
             const headers = {
                 'Content-Type': 'application/json',
@@ -51,7 +50,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
             setLoader(true);
             try {
                 const res = await fetchParams("/api/v1/directory/", headers);
-                if (res.status === 200) {
+                if (res.status === config.OK_STATUS) {
                     const dirs = res.data.direcotries;
                     setdataDirectory(dirs)
 

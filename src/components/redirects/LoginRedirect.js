@@ -1,11 +1,11 @@
 import {useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
-
+import config from '../../utils/config';
 
 function LoginRedirect () {
-    const username = localStorage.getItem("cloud_drive_username");
-    const email = localStorage.getItem("cloud_drive_email");
-    const access_token = localStorage.getItem("cloud_drive_access_token");
+    const username = localStorage.getItem(config.CLOUD_DRIVE_USERNAME);
+    const email = localStorage.getItem(config.CLOUD_DRIVE_EMAIL);
+    const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
     const navigate = useNavigate();
 
     useEffect(() => {

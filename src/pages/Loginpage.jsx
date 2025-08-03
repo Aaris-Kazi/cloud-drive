@@ -8,6 +8,7 @@ import { create } from "../utils/webclient";
 import ErrorComponent from "../components/ErrorComponent";
 import Loader from "../components/Loader";
 import HomeRedirect from "../components/redirects/HomeRedirect";
+import config from "../utils/config";
 
 const Loginpage = () => {
     HomeRedirect();
@@ -39,10 +40,10 @@ const Loginpage = () => {
                 password: password
             });
 
-            if (res.status === 200) {
-                localStorage.setItem("cloud_drive_username", res.data.username);
-                localStorage.setItem("cloud_drive_email", email);
-                localStorage.setItem("cloud_drive_access_token", res.data.access_token);
+            if (res.status === config.OK_STATUS) {
+                localStorage.setItem(config.CLOUD_DRIVE_USERNAME, res.data.username);
+                localStorage.setItem(config.CLOUD_DRIVE_EMAIL, email);
+                localStorage.setItem(config.CLOUD_DRIVE_ACCESS_TOKEN, res.data.access_token);
                 navigate("/home");
             } else {
                 setError(res.data);
