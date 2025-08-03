@@ -38,10 +38,10 @@ export const createDelete = async (endpoint, props, headers) => {
    * This method allows to post  API
    */
   try {
-    const response = await apiClient.delete(endpoint, props, { headers });
+    const response = await apiClient.delete(endpoint, { headers, data: props });
     return response
   } catch (error) {
-    // console.error("Error Create webcleint:: ", error);
+    console.error("Error Create webcleint:: ", error);
     return error
   }
 }

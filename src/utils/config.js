@@ -5,7 +5,7 @@ const config = {
   CLOUD_DRIVE_ACCESS_TOKEN: "cloud_drive_access_token",
   CLOUD_DRIVE_EMAIL: "cloud_drive_email",
   CLOUD_DRIVE_USERNAME: "cloud_drive_username",
-  OK_STATUS : 200
+  OK_STATUS: 200
 };
 // const config = {
 //   BASE_URL:

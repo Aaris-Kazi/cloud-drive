@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../Loader";
 import { FcFile, FcFolder } from "react-icons/fc";
-import { createPost, fetchParams } from "../../utils/webclient";
+import { MdDeleteForever } from "react-icons/md";
+import { createDelete, createPost, fetchParams } from "../../utils/webclient";
 import NewFolderPopOver from "../NewFolderPopOver";
 import config from "../../utils/config";
 
@@ -12,9 +13,38 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
     const [dataFiles, setdataFiles] = useState([]);
     const [dataFolder, setdataFolder] = useState([]);
 
+    const removeFolder = async (folderName) => {
+
+        setdataFolder(prev => prev.filter(name => name !== folderName));
+
+        const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + access_token
+        };
+
+        const payload = {
+            "directory": folderName
+        }
+
+        console.log(payload);
+
+
+        try {
+            const res = await createDelete("/api/v1/directory/", payload, headers);
+            if (res.status === config.OK_STATUS) {
+                setError("");
+            } else {
+                setError(res.message);
+            }
+        } catch (error) {
+            setError(error);
+        }
+    };
+
     const handleSubmit = async (value) => {
         setShowPopup(false);
-        setdataFolder(prev => [...prev, value]);
 
         const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
 
@@ -31,6 +61,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
             const res = await createPost("/api/v1/directory/", payload, headers);
             if (res.status === config.OK_STATUS) {
                 setError("");
+                setdataFolder(prev => [...prev, value]);
             } else {
                 setError(res.message);
             }
@@ -110,7 +141,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                                 <tr>
                                     <td className='table-text'><FcFolder className='margin-right-desktop' /> {folder}</td>
                                     <td>5 Feb 2020</td>
-                                    <td>Aaris Kazi</td>
+                                    <td>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(folder)} /></td>
                                 </tr>
                             ))
                         }
@@ -119,7 +150,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                             <tr>
                                 <td className='table-text'><FcFile className='margin-right-desktop' /> {files}</td>
                                 <td>5 Feb 2020</td>
-                                <td>Aaris Kazi</td>
+                                <td>Aaris Kazi <MdDeleteForever className="del text-danger" /></td>
                             </tr>
                         ))}
                     </tbody>
