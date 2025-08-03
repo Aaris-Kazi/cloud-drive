@@ -4,7 +4,7 @@ import Photos from './navbarPages/Photos'
 import Audio from './navbarPages/Audio'
 import Home from './navbarPages/Home'
 
-function RenderPanel({ activePanel }) {
+function RenderPanel({ activePanel, showPopup, setShowPopup, handleClose }) {
     /**
      * This class is to control the flow
      * which panel to pop over
@@ -13,7 +13,7 @@ function RenderPanel({ activePanel }) {
     switch (activePanel) {
         case "files":
             return (
-                <MyFiles />
+                <MyFiles setShowPopup={setShowPopup} showPopup={showPopup} handleClose={handleClose} />
             )
 
         case "home":

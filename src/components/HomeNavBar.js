@@ -14,7 +14,7 @@ import "../pages/css/HomePage.css"
 import { Link } from 'react-router-dom';
 import AddPopOver from './AddPopOver';
 
-function HomeNavBar({setActivePanel}) {
+function HomeNavBar({ setActivePanel, handleOpen }) {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [showPopover, setShowPopover] = useState(false);
     const popoverRef = useRef(null);
@@ -53,7 +53,7 @@ function HomeNavBar({setActivePanel}) {
             <ul className='nav flex-column home' ref={popoverRef}>
                 <li className='nav-item'>
                     <Link to={''} className='nav-link active add' onClick={togglePopover}><IoIosAddCircle className='add-button' /></Link>
-                    {showPopover && (<AddPopOver />)}
+                    {showPopover && (<AddPopOver handleOpen={handleOpen} />)}
                 </li>
                 <li className='nav-item' onClick={() => setActivePanel("home")}>
                     <Link to={''} className='nav-link active'><IoMdHome /></Link>
@@ -82,15 +82,15 @@ function HomeNavBar({setActivePanel}) {
             <ul className='nav flex-column home' ref={popoverRef}>
                 <li className='nav-item'>
                     <Link to={''} className='nav-link active' onClick={togglePopover}><IoIosAddCircle className='add-button' /></Link>
-                    {showPopover && (<AddPopOver />)}
+                    {showPopover && (<AddPopOver handleOpen={handleOpen} />)}
                 </li>
                 <li className='nav-item' onClick={() => setActivePanel("home")} >
                     <Link to={''} className='nav-link active'><IoMdHome /> Home</Link>
                 </li>
-                <li className='nav-item'  onClick={() => setActivePanel("files")}>
+                <li className='nav-item' onClick={() => setActivePanel("files")}>
                     <Link to={''} className='nav-link active'><IoMdFolderOpen /> My files</Link>
                 </li>
-                <li className='nav-item'  onClick={() => setActivePanel("photos")}>
+                <li className='nav-item' onClick={() => setActivePanel("photos")}>
                     <Link to={''} className='nav-link active'><MdOutlineInsertPhoto /> Photos</Link>
                 </li>
                 <li className='nav-item'>

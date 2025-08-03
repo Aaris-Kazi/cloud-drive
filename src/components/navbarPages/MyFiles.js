@@ -2,13 +2,20 @@ import React, { useEffect, useState } from "react";
 import Loader from "../Loader";
 import { FcFile, FcFolder } from "react-icons/fc";
 import { createPost, fetchParams } from "../../utils/webclient";
+import NewFolderPopOver from "../NewFolderPopOver";
 
-const MyFiles = () => {
+const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState("");
     const [dataDirectory, setdataDirectory] = useState({});
     const [dataFiles, setdataFiles] = useState([]);
     const [dataFolder, setdataFolder] = useState([]);
+    
+    const handleSubmit = (value) => {
+        console.log('User entered:', value);
+        // You can make API calls here
+        setShowPopup(false);
+    };
 
     useEffect(() => {
         const getFiles = async () => {
@@ -101,6 +108,8 @@ const MyFiles = () => {
 
                 </table>
             )}
+
+            <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} />
 
         </div>
     )
