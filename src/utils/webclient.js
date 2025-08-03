@@ -28,7 +28,7 @@ export const createPost = async (endpoint, props, headers) => {
     const response = await apiClient.post(endpoint, props, { headers });
     return response
   } catch (error) {
-    // console.error("Error Create webcleint:: ", error);
+    console.error("Error Create webcleint:: ", error);
     return error
   }
 }

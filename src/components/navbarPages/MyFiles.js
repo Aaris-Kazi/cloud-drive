@@ -10,11 +10,34 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
     const [dataDirectory, setdataDirectory] = useState({});
     const [dataFiles, setdataFiles] = useState([]);
     const [dataFolder, setdataFolder] = useState([]);
-    
-    const handleSubmit = (value) => {
+
+    const handleSubmit = async (value) => {
         console.log('User entered:', value);
         // You can make API calls here
         setShowPopup(false);
+        setdataFolder(prev => [...prev, value]);
+
+        const access_token = localStorage.getItem("cloud_drive_access_token");
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + access_token
+        };
+
+        const payload = {
+            "directory": value
+        }
+
+        try {
+            const res = await createPost("/api/v1/directory/", payload, headers);
+            if (res.status === 200) {
+                setError("");
+            } else {
+                setError(res.message);
+            }
+        } catch (error) {
+            setError(error);
+        }
     };
 
     useEffect(() => {
@@ -46,11 +69,9 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                     setError("");
                 } else {
                     setError(res.message);
-                    console.log(res.status);
                 }
             } catch (error) {
                 setError(error);
-                console.log(error);
             }
             setLoader(false);
         };
@@ -67,7 +88,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                 </div>
             )}
             {!loader && error !== "" && (
-                <div class="alert alert-danger" role="alert">
+                <div className="alert alert-danger" role="alert">
                     {error}
                 </div>
             )}
