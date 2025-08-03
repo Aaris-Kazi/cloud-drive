@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../Loader";
 import { FcFile, FcFolder } from "react-icons/fc";
-import { fetchParams } from "../../utils/webclient";
+import { createPost, fetchParams } from "../../utils/webclient";
 
 const MyFiles = () => {
     const [loader, setLoader] = useState(false);
+    const [error, setError] = useState("");
     const [dataDirectory, setdataDirectory] = useState({});
     const [dataFiles, setdataFiles] = useState([]);
     const [dataFolder, setdataFolder] = useState([]);
@@ -35,11 +36,13 @@ const MyFiles = () => {
                     } else {
                         setdataFolder([]);
                     }
+                    setError("");
                 } else {
-                    console.log(res.message);
+                    setError(res.message);
                     console.log(res.status);
                 }
             } catch (error) {
+                setError(error);
                 console.log(error);
             }
             setLoader(false);
@@ -54,6 +57,11 @@ const MyFiles = () => {
             {loader && (
                 <div className="row loader">
                     <Loader />
+                </div>
+            )}
+            {!loader && error !== "" && (
+                <div class="alert alert-danger" role="alert">
+                    {error}
                 </div>
             )}
             {!loader && (
