@@ -20,6 +20,31 @@ export const create = async (endpoint, props) => {
   }
 }
 
+export const createPost = async (endpoint, props, headers) => {
+  /*
+   * This method allows to post  API
+   */
+  try {
+    const response = await apiClient.post(endpoint, props, { headers });
+    return response
+  } catch (error) {
+    // console.error("Error Create webcleint:: ", error);
+    return error
+  }
+}
+
+export const createDelete = async (endpoint, props, headers) => {
+  /*
+   * This method allows to post  API
+   */
+  try {
+    const response = await apiClient.delete(endpoint, props, { headers });
+    return response
+  } catch (error) {
+    // console.error("Error Create webcleint:: ", error);
+    return error
+  }
+}
 
 export const fetch = async (endpoint) => {
   /*
@@ -27,6 +52,19 @@ export const fetch = async (endpoint) => {
    */
   try {
     const response = apiClient.get(endpoint);
+    return response
+  } catch (error) {
+    console.error("Error Create webcleint:: ", error);
+    return error
+  }
+}
+
+export const fetchParams = async (endpoint, headers) => {
+  /*
+   * This method allows to get or fetch API
+   */
+  try {
+    const response = apiClient.get(endpoint, { headers });
     return response
   } catch (error) {
     console.error("Error Create webcleint:: ", error);

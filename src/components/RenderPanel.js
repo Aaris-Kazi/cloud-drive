@@ -5,6 +5,10 @@ import Audio from './navbarPages/Audio'
 import Home from './navbarPages/Home'
 
 function RenderPanel({ activePanel }) {
+    /**
+     * This class is to control the flow
+     * which panel to pop over
+     */
     
     switch (activePanel) {
         case "files":
