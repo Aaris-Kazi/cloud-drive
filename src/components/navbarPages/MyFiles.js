@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../Loader";
 import { FcFile, FcFolder } from "react-icons/fc";
 import { MdDeleteForever } from "react-icons/md";
@@ -27,9 +27,6 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
         const payload = {
             "directory": folderName
         }
-
-        console.log(payload);
-
 
         try {
             const res = await createDelete("/api/v1/directory/", payload, headers);
