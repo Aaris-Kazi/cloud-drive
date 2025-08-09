@@ -2,114 +2,33 @@ import { useEffect, useState } from "react";
 import Loader from "../Loader";
 import { FcFile, FcFolder } from "react-icons/fc";
 import { MdDeleteForever } from "react-icons/md";
-import { createDelete, createPost, fetchParams } from "../../utils/webclient";
 import NewFolderPopOver from "../NewFolderPopOver";
-import config from "../../utils/config";
 import "../../pages/css/Home.css";
+import BreadCrumbsPath from "../BreadCrumbsPath";
+import { getFiles, removeFolder, handleSubmit } from "../../utils/FolderOperations";
 
 const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState("");
+    const [currentPath, setCurrentPath] = useState("");
     const [dataDirectory, setdataDirectory] = useState({});
     const [dataFiles, setdataFiles] = useState([]);
     const [dataFolder, setdataFolder] = useState([]);
 
-    const removeFolder = async (folderName) => {
+    const setFolderPath = async (path) => {
+        const newPath = currentPath + path + "/";
+        setCurrentPath(newPath);
+        getFiles(currentPath, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
 
-        setdataFolder(prev => prev.filter(name => name !== folderName));
-
-        const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
-
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + access_token
-        };
-
-        const payload = {
-            "directory": folderName
-        }
-
-        try {
-            const res = await createDelete("/api/v1/directory/", payload, headers);
-            if (res.status === config.OK_STATUS) {
-                setError("");
-            } else {
-                setError(res.message);
-            }
-        } catch (error) {
-            setError(error);
-        }
-    };
-
-    const handleSubmit = async (value) => {
-        setShowPopup(false);
-
-        const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
-
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + access_token
-        };
-
-        const payload = {
-            "directory": value
-        }
-
-        try {
-            const res = await createPost("/api/v1/directory/", payload, headers);
-            if (res.status === config.OK_STATUS) {
-                setError("");
-                setdataFolder(prev => [...prev, value]);
-            } else {
-                setError(res.message);
-            }
-        } catch (error) {
-            setError(error);
-        }
-    };
+    }
 
     useEffect(() => {
-        const getFiles = async () => {
-            const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
-
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + access_token
-            };
-            setLoader(true);
-            try {
-                const res = await fetchParams("/api/v1/directory/", headers);
-                if (res.status === config.OK_STATUS) {
-                    const dirs = res.data.direcotries;
-                    setdataDirectory(dirs)
-
-                    if (dirs.file) {
-                        setdataFiles(dirs.file);
-                    } else {
-                        setdataFiles([]);
-                    }
-
-                    if (dirs.folder) {
-                        setdataFolder(dirs.folder);
-                    } else {
-                        setdataFolder([]);
-                    }
-                    setError("");
-                } else {
-                    setError(res.message);
-                }
-            } catch (error) {
-                setError(error);
-            }
-            setLoader(false);
-        };
-
-        getFiles();
-    }, []);
+        getFiles(currentPath, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
+    }, [currentPath]);
 
     return (
         <div className="row">
-            <span className='h4 button-title'>Files</span>
+            <span className='h4 button-title'><BreadCrumbsPath setCurrentPath={ setCurrentPath} path={currentPath} /></span>
             {loader && (
                 <div className="row loader">
                     <Loader />
@@ -137,9 +56,9 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                         {!loader && dataFolder.map(
                             (folder, index) => (
                                 <tr>
-                                    <td className='table-text'><FcFolder className='margin-right-desktop' /> {folder}</td>
+                                    <td className='table-text' onDoubleClick={() => setFolderPath(folder, setShowPopup, setError, setdataFolder)}><FcFolder className='margin-right-desktop' /> {folder}</td>
                                     <td>5 Feb 2020</td>
-                                    <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(folder)} /></td>
+                                    <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(currentPath, folder, setdataFolder, setError)} /></td>
                                 </tr>
                             ))
                         }
@@ -158,7 +77,8 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                 </table>
             )}
 
-            <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} />
+            <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} superPath={currentPath} setShowPopup={setShowPopup} setError={setError} setdataFolder={setdataFolder} />
+            {/* <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} /> */}
 
         </div>
     )

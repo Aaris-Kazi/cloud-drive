@@ -59,12 +59,12 @@ export const fetch = async (endpoint) => {
   }
 }
 
-export const fetchParams = async (endpoint, headers) => {
+export const fetchParams = async (endpoint, headers, param) => {
   /*
    * This method allows to get or fetch API
    */
   try {
-    const response = apiClient.get(endpoint, { headers });
+    const response = apiClient.get(endpoint, { params: param, headers : headers });
     return response
   } catch (error) {
     console.error("Error Create webcleint:: ", error);

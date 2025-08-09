@@ -1,14 +1,14 @@
 import "../pages/css/FolderPopOver.css"
 
-import React, { useState } from "react";
+import { useState } from "react";
 
-const NewFolderPopOver = ({ show, onClose, onSubmit }) => {
+const NewFolderPopOver = ({ show, onClose, onSubmit, superPath, setShowPopup, setError, setdataFolder }) => {
     const [inputValue, setInputValue] = useState('');
 
     if (!show) return null;
 
     const handleSubmit = () => {
-        onSubmit(inputValue);
+        onSubmit(superPath, inputValue, setShowPopup, setError, setdataFolder);
         setInputValue('');
     };
 

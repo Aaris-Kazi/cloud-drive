@@ -1,4 +1,10 @@
 .del.text-danger {
     min-width: 18px;
     min-height: 18px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.breadcrumb {
+    --bs-breadcrumb-divider: '>'
 }
