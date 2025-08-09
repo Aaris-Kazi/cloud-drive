@@ -5,6 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { createDelete, createPost, fetchParams } from "../../utils/webclient";
 import NewFolderPopOver from "../NewFolderPopOver";
 import config from "../../utils/config";
+import "../../pages/css/Home.css";
 
 const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
     const [loader, setLoader] = useState(false);
@@ -138,7 +139,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                                 <tr>
                                     <td className='table-text'><FcFolder className='margin-right-desktop' /> {folder}</td>
                                     <td>5 Feb 2020</td>
-                                    <td>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(folder)} /></td>
+                                    <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(folder)} /></td>
                                 </tr>
                             ))
                         }
@@ -147,7 +148,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                             <tr>
                                 <td className='table-text'><FcFile className='margin-right-desktop' /> {files}</td>
                                 <td>5 Feb 2020</td>
-                                <td>Aaris Kazi <MdDeleteForever className="del text-danger" /></td>
+                                <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" /></td>
                             </tr>
                         ))}
                     </tbody>
