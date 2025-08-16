@@ -16,7 +16,7 @@ export const getFiles = async (value, setLoader, setdataDirectory, setdataFiles,
         const res = await fetchParams("/api/v1/directory/", headers, params);
         if (res.status === config.OK_STATUS) {
             const dirs = res.data.direcotries;
-            setdataDirectory(dirs)
+            setdataDirectory(dirs);
 
             if (dirs.file) {
                 setdataFiles(dirs.file);
@@ -34,7 +34,7 @@ export const getFiles = async (value, setLoader, setdataDirectory, setdataFiles,
             setError(res.message);
         }
     } catch (error) {
-        setError(error);
+        setError(error.message);
     }
     setLoader(false);
 };
@@ -63,7 +63,7 @@ export const removeFolder = async (superPath, folderName, setdataFolder, setErro
             setError(res.message);
         }
     } catch (error) {
-        setError(error);
+        setError(error.message);
     }
 };
 
@@ -92,6 +92,6 @@ export const handleSubmit = async (superPath, value, setShowPopup, setError, set
             setError(res.message);
         }
     } catch (error) {
-        setError(error);
+        setError(error.message);
     }
 };
