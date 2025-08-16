@@ -10,25 +10,43 @@ import { getFiles, removeFolder, handleSubmit } from "../../utils/FolderOperatio
 const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState("");
-    const [currentPath, setCurrentPath] = useState("");
+    const [currentPath, setCurrentPath] = useState([]);
     const [dataDirectory, setdataDirectory] = useState({});
     const [dataFiles, setdataFiles] = useState([]);
     const [dataFolder, setdataFolder] = useState([]);
 
     const setFolderPath = async (path) => {
-        const newPath = currentPath + path + "/";
-        setCurrentPath(newPath);
-        getFiles(currentPath, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
+        console.log(path);
+        
+        setCurrentPath(prev => {
+            // console.log(prev);
+            
+            const up = [...prev, path]
+            console.log(up);
+            return up
+            
+        });
+        // setCurrentPath(prev => [...prev, prev[prev.length - 1] +"/"+ path])
+        // if (currentPath.length === 0) {
+        // } else {
+        // }
+        console.log(currentPath);
+        
+        await getFiles(path, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
 
     }
 
+    const setFolderPath1 = async (path) => {
+        await getFiles(path, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
+    }
+
     useEffect(() => {
-        getFiles(currentPath, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
-    }, [currentPath]);
+        getFiles("", setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
+    }, []);
 
     return (
         <div className="row">
-            <span className='h4 button-title'><BreadCrumbsPath setCurrentPath={ setCurrentPath} path={currentPath} /></span>
+            <span className='h4 button-title'><BreadCrumbsPath setCurrentPath={ setCurrentPath} path={currentPath} setFolderPath1={setFolderPath1} /></span>
             {loader && (
                 <div className="row loader">
                     <Loader />
@@ -52,20 +70,20 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                         {Object.keys(dataDirectory).length === 0 && (
                             <tr><td colSpan="3">No files found.</td></tr>
                         )}
-
+                        
                         {!loader && dataFolder.map(
                             (folder, index) => (
-                                <tr>
-                                    <td className='table-text' onDoubleClick={() => setFolderPath(folder, setShowPopup, setError, setdataFolder)}><FcFolder className='margin-right-desktop' /> {folder}</td>
+                                <tr key={`${folder.name}-${index}`}>
+                                    <td className='table-text' onDoubleClick={() => setFolderPath(folder.name)}><FcFolder className='margin-right-desktop' /> {folder.name}</td>
                                     <td>5 Feb 2020</td>
-                                    <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(currentPath, folder, setdataFolder, setError)} /></td>
+                                    <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(currentPath[currentPath.length - 1], folder.name, setdataFolder, setError)} /></td>
                                 </tr>
                             ))
                         }
 
                         {!loader && dataFiles.map((files, index) => (
-                            <tr>
-                                <td className='table-text'><FcFile className='margin-right-desktop' /> {files}</td>
+                            <tr key={`${files.name}-${index}`} >
+                                <td className='table-text'><FcFile className='margin-right-desktop' /> {files.name}</td>
                                 <td>5 Feb 2020</td>
                                 <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" /></td>
                             </tr>
@@ -77,7 +95,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                 </table>
             )}
 
-            <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} superPath={currentPath} setShowPopup={setShowPopup} setError={setError} setdataFolder={setdataFolder} />
+            <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} superPath={currentPath[currentPath.length - 1]} setShowPopup={setShowPopup} setError={setError} setdataFolder={setdataFolder} />
             {/* <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} /> */}
 
         </div>
