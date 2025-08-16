@@ -22,15 +22,10 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
             // console.log(prev);
             
             const up = [...prev, path]
-            console.log(up);
+            // console.log(up);
             return up
             
         });
-        // setCurrentPath(prev => [...prev, prev[prev.length - 1] +"/"+ path])
-        // if (currentPath.length === 0) {
-        // } else {
-        // }
-        console.log(currentPath);
         
         await getFiles(path, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
 
@@ -67,7 +62,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {Object.keys(dataDirectory).length === 0 && (
+                        {dataFolder.length === 0 && dataFiles.length === 0 && (
                             <tr><td colSpan="3">No files found.</td></tr>
                         )}
                         
@@ -76,7 +71,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                                 <tr key={`${folder.name}-${index}`}>
                                     <td className='table-text' onDoubleClick={() => setFolderPath(folder.name)}><FcFolder className='margin-right-desktop' /> {folder.name}</td>
                                     <td>5 Feb 2020</td>
-                                    <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(currentPath[currentPath.length - 1], folder.name, setdataFolder, setError)} /></td>
+                                    <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFolder(currentPath[currentPath.length - 1], folder.name, setdataFolder, setError, setFolderPath1)} /></td>
                                 </tr>
                             ))
                         }

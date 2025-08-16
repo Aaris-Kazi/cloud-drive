@@ -39,8 +39,14 @@ export const getFiles = async (value, setLoader, setdataDirectory, setdataFiles,
     setLoader(false);
 };
 
-export const removeFolder = async (superPath, folderName, setdataFolder, setError) => {
+export const removeFolder = async (superPath, folderName, setdataFolder, setError, setFolderPath1) => {
     // this method allows to delete folder
+
+    if (superPath === undefined) {
+        superPath = ""
+    } else {
+        superPath = superPath + "/"
+    }
 
     setdataFolder(prev => prev.filter(name => name !== folderName));
 
@@ -59,6 +65,7 @@ export const removeFolder = async (superPath, folderName, setdataFolder, setErro
         const res = await createDelete("/api/v1/directory/", payload, headers);
         if (res.status === config.OK_STATUS) {
             setError("");
+            setFolderPath1(superPath);
         } else {
             setError(res.message);
         }
@@ -83,11 +90,15 @@ export const handleSubmit = async (superPath, value, setShowPopup, setError, set
         "directory": superPath + value
     }
 
+    setdataFolder(prev => {const rep = [...prev, {"name": value}]
+        return rep;
+    });
+    
+
     try {
         const res = await createPost("/api/v1/directory/", payload, headers);
         if (res.status === config.OK_STATUS) {
             setError("");
-            setdataFolder(prev => [...prev, value]);
         } else {
             setError(res.message);
         }

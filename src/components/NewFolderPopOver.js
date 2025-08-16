@@ -7,8 +7,13 @@ const NewFolderPopOver = ({ show, onClose, onSubmit, superPath, setShowPopup, se
 
     if (!show) return null;
 
-    const handleSubmit = () => {
-        onSubmit(superPath, inputValue, setShowPopup, setError, setdataFolder);
+    const handleSubmit = async (inpValue) => {
+        if (superPath === undefined) {
+            superPath = "/"
+        } else {
+            superPath = superPath + "/"
+        }
+        onSubmit(superPath, inpValue, setShowPopup, setError, setdataFolder, setInputValue);
         setInputValue('');
     };
 
@@ -29,7 +34,7 @@ const NewFolderPopOver = ({ show, onClose, onSubmit, superPath, setShowPopup, se
                     onChange={(e) => setInputValue(e.target.value)}
                 />
                 <div className="popup-buttons">
-                    <button className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+                    <button className="btn btn-primary" onClick={(e) => handleSubmit(inputValue)}>Submit</button>
                     <button className="btn btn-danger"onClick={handleCancel}>Cancel</button>
                 </div>
             </div>
