@@ -8,7 +8,7 @@ import BreadCrumbsPath from "../BreadCrumbsPath";
 import { getFiles, removeFolder, handleSubmit, handleFileSubmit } from "../../utils/FolderOperations";
 import NewFilePopOver from "../NewFilePopOver";
 
-const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup,  setInputFileShowPopup, handleCloseFile }) => {
+const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, setInputFileShowPopup, handleCloseFile }) => {
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState("");
     const [currentPath, setCurrentPath] = useState([]);
@@ -17,15 +17,35 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup,  se
     const [dataFolder, setdataFolder] = useState([]);
 
     const setFolderPath = async (path) => {
+        console.log("setfolder");
         console.log(path);
+        let supPath = currentPath[currentPath.length - 1];
 
+
+        if (supPath === undefined) {
+            supPath = path
+        } else {
+            supPath = supPath + "/" + path
+        }
         setCurrentPath(prev => {
-            const up = [...prev, path]
+            console.log(prev);
+            let up;
+
+            if (prev.length === 0) {
+
+                up = [...prev, path]
+            } else {
+
+                up = [...prev, prev + "/" + path]
+            }
+
+            console.log(up);
+
             return up
 
         });
+        await getFiles(supPath, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
 
-        await getFiles(path, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
 
     }
 

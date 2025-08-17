@@ -2,8 +2,9 @@ import config from './config';
 import { fetchParams, createDelete, createPost } from './webclient';
 
 export const getFiles = async (value, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError) => {
+    
     const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
-
+    
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + access_token
@@ -11,6 +12,7 @@ export const getFiles = async (value, setLoader, setdataDirectory, setdataFiles,
     const params = {
         "directory": value
     };
+
     setLoader(true);
     try {
         const res = await fetchParams("/api/v1/directory/", headers, params);
@@ -130,7 +132,8 @@ export const handleFileSubmit = async (superPath, filename, setShowPopup, setErr
 
         const res = await createPost("/api/v1/file/", form, headers);
         if (res.status === config.OK_STATUS) {
-            setdataFiles(prev => [...prev,  {"name": filename.name}])
+            setdataFiles(prev => [...prev,  {"name": filename.name}]);
+            setError("");
         } else {
             setError(res.message);
         }
