@@ -35,7 +35,7 @@ const NewFolderPopOver = ({ show, onClose, onSubmit, superPath, setShowPopup, se
                 />
                 <div className="popup-buttons">
                     <button className="btn btn-primary" onClick={(e) => handleSubmit(inputValue)}>Submit</button>
-                    <button className="btn btn-danger"onClick={handleCancel}>Cancel</button>
+                    <button className="btn btn-danger" onClick={handleCancel}>Cancel</button>
                 </div>
             </div>
         </div>

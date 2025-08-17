@@ -14,7 +14,7 @@ import "../pages/css/HomePage.css"
 import { Link } from 'react-router-dom';
 import AddPopOver from './AddPopOver';
 
-function HomeNavBar({ setActivePanel, handleOpen }) {
+function HomeNavBar({ setActivePanel, handleOpen, openFileInput }) {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [showPopover, setShowPopover] = useState(false);
     const popoverRef = useRef(null);
@@ -53,7 +53,7 @@ function HomeNavBar({ setActivePanel, handleOpen }) {
             <ul className='nav flex-column home' ref={popoverRef}>
                 <li className='nav-item'>
                     <Link to={''} className='nav-link active add' onClick={togglePopover}><IoIosAddCircle className='add-button' /></Link>
-                    {showPopover && (<AddPopOver handleOpen={handleOpen} />)}
+                    {showPopover && (<AddPopOver handleOpen={handleOpen} openFileInput={openFileInput} />)}
                 </li>
                 <li className='nav-item' onClick={() => setActivePanel("home")}>
                     <Link to={''} className='nav-link active'><IoMdHome /></Link>
@@ -82,7 +82,7 @@ function HomeNavBar({ setActivePanel, handleOpen }) {
             <ul className='nav flex-column home' ref={popoverRef}>
                 <li className='nav-item'>
                     <Link to={''} className='nav-link active' onClick={togglePopover}><IoIosAddCircle className='add-button' /></Link>
-                    {showPopover && (<AddPopOver handleOpen={handleOpen} />)}
+                    {showPopover && (<AddPopOver handleOpen={handleOpen} openFileInput={openFileInput} />)}
                 </li>
                 <li className='nav-item' onClick={() => setActivePanel("home")} >
                     <Link to={''} className='nav-link active'><IoMdHome /> Home</Link>

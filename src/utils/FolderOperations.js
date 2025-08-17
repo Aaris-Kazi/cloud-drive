@@ -106,3 +106,38 @@ export const handleSubmit = async (superPath, value, setShowPopup, setError, set
         setError(error.message);
     }
 };
+
+export const handleFileSubmit = async (superPath, filename, setShowPopup, setError, setdataFiles) => {
+
+    setShowPopup(false);
+    const access_token = localStorage.getItem(config.CLOUD_DRIVE_ACCESS_TOKEN);
+    const form = new FormData();
+
+    form.append("name",filename.name);
+    form.append("file",filename);
+    form.append("folder",superPath);
+
+    console.log(filename.name);
+    console.log(filename);
+    console.log(superPath);
+    
+    const headers = {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer ' + access_token
+    };
+
+    try {
+
+        const res = await createPost("/api/v1/file/", form, headers);
+        if (res.status === config.OK_STATUS) {
+            setdataFiles(prev => [...prev,  {"name": filename.name}])
+        } else {
+            setError(res.message);
+        }
+
+    } catch (error) {
+        setError(error.message);
+    }
+    
+
+}

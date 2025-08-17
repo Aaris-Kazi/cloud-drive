@@ -5,9 +5,10 @@ import { MdDeleteForever } from "react-icons/md";
 import NewFolderPopOver from "../NewFolderPopOver";
 import "../../pages/css/Home.css";
 import BreadCrumbsPath from "../BreadCrumbsPath";
-import { getFiles, removeFolder, handleSubmit } from "../../utils/FolderOperations";
+import { getFiles, removeFolder, handleSubmit, handleFileSubmit } from "../../utils/FolderOperations";
+import NewFilePopOver from "../NewFilePopOver";
 
-const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
+const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup,  setInputFileShowPopup, handleCloseFile }) => {
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState("");
     const [currentPath, setCurrentPath] = useState([]);
@@ -17,16 +18,13 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
 
     const setFolderPath = async (path) => {
         console.log(path);
-        
+
         setCurrentPath(prev => {
-            // console.log(prev);
-            
             const up = [...prev, path]
-            // console.log(up);
             return up
-            
+
         });
-        
+
         await getFiles(path, setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
 
     }
@@ -41,7 +39,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
 
     return (
         <div className="row">
-            <span className='h4 button-title'><BreadCrumbsPath setCurrentPath={ setCurrentPath} path={currentPath} setFolderPath1={setFolderPath1} /></span>
+            <span className='h4 button-title'><BreadCrumbsPath setCurrentPath={setCurrentPath} path={currentPath} setFolderPath1={setFolderPath1} /></span>
             {loader && (
                 <div className="row loader">
                     <Loader />
@@ -65,7 +63,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
                         {dataFolder.length === 0 && dataFiles.length === 0 && (
                             <tr><td colSpan="3">No files found.</td></tr>
                         )}
-                        
+
                         {!loader && dataFolder.map(
                             (folder, index) => (
                                 <tr key={`${folder.name}-${index}`}>
@@ -91,7 +89,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose }) => {
             )}
 
             <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} superPath={currentPath[currentPath.length - 1]} setShowPopup={setShowPopup} setError={setError} setdataFolder={setdataFolder} />
-            {/* <NewFolderPopOver show={showPopup} onClose={handleClose} onSubmit={handleSubmit} /> */}
+            <NewFilePopOver show={inputFileShowPopup} onClose={handleCloseFile} onSubmit={handleFileSubmit} superPath={currentPath[currentPath.length - 1]} setShowPopup={setInputFileShowPopup} setError={setError} setdataFiles={setdataFiles} />
 
         </div>
     )
