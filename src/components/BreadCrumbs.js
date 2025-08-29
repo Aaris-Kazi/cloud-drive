@@ -7,11 +7,16 @@ const BreadCrumbsPath = ({setCurrentPath,  path, setFolderPath1 }) => {
     const parts = path;
 
     const setUpPath = (parts, part) => {
+        console.log(parts);
+        console.log(part);
+        
         
         const list = [];
 
         for (let index = 0; index < parts.length; index++) {
             const element = parts[index];
+            console.log(element);
+            
             
             list.push(element)
             if (part === element) {
@@ -54,7 +59,7 @@ const BreadCrumbsPath = ({setCurrentPath,  path, setFolderPath1 }) => {
                         onClick={() => setUpPath(parts, part)}
                     >
                     
-                        {part}
+                        {part.split("/").pop()}
                     </li>
                 ))}
 

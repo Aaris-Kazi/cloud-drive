@@ -4,7 +4,7 @@ import { FcFile, FcFolder } from "react-icons/fc";
 import { MdDeleteForever } from "react-icons/md";
 import NewFolderPopOver from "../NewFolderPopOver";
 import "../../pages/css/Home.css";
-import BreadCrumbsPath from "../BreadCrumbsPath";
+import BreadCrumbs from "../BreadCrumbs";
 import { getFiles, removeFolder, handleSubmit, handleFileSubmit } from "../../utils/FolderOperations";
 import NewFilePopOver from "../NewFilePopOver";
 
@@ -18,8 +18,10 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
 
     const setFolderPath = async (path) => {
         console.log("setfolder");
-        console.log(path);
+        // console.log(path);
         let supPath = currentPath[currentPath.length - 1];
+        // console.log(supPath);
+        
 
 
         if (supPath === undefined) {
@@ -28,7 +30,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
             supPath = supPath + "/" + path
         }
         setCurrentPath(prev => {
-            console.log(prev);
+            // console.log(prev);
             let up;
 
             if (prev.length === 0) {
@@ -36,10 +38,10 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
                 up = [...prev, path]
             } else {
 
-                up = [...prev, prev + "/" + path]
+                up = [...prev, supPath ]
             }
 
-            console.log(up);
+            // console.log(up);
 
             return up
 
@@ -59,7 +61,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
 
     return (
         <div className="row">
-            <span className='h4 button-title'><BreadCrumbsPath setCurrentPath={setCurrentPath} path={currentPath} setFolderPath1={setFolderPath1} /></span>
+            <span className='h4 button-title'><BreadCrumbs setCurrentPath={setCurrentPath} path={currentPath} setFolderPath1={setFolderPath1} /></span>
             {loader && (
                 <div className="row loader">
                     <Loader />
