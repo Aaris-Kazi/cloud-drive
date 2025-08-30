@@ -7,6 +7,7 @@ import "../../pages/css/Home.css";
 import BreadCrumbs from "../BreadCrumbs";
 import { getFiles, removeFolder, handleSubmit, handleFileSubmit, removeFile } from "../../utils/FolderOperations";
 import NewFilePopOver from "../NewFilePopOver";
+import config from "../../utils/config";
 
 const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, setInputFileShowPopup, handleCloseFile }) => {
     const [loader, setLoader] = useState(false);
@@ -15,7 +16,14 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
     const [dataDirectory, setdataDirectory] = useState({});
     const [dataFiles, setdataFiles] = useState([]);
     const [dataFolder, setdataFolder] = useState([]);
+    const username = localStorage.getItem("cloud_drive_username");
+    let previewPath = currentPath[currentPath.length - 1];
 
+    if (previewPath === undefined) {
+        previewPath = ""
+    } else {
+        previewPath = "/" + previewPath
+    }
     const setFolderPath = async (path) => {
         console.log("setfolder");
         // console.log(path);
@@ -59,6 +67,10 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
         getFiles("", setLoader, setdataDirectory, setdataFiles, setdataFolder, setError);
     }, []);
 
+    const FilePreview = async (fileUrl) => {
+        window.open(config.BASE_URL + "/media/storage/" + username + previewPath +"/"+ fileUrl, "_blank", "noopener,noreferrer");
+    };
+
     return (
         <div className="row">
             <span className='h4 button-title'><BreadCrumbs setCurrentPath={setCurrentPath} path={currentPath} setFolderPath1={setFolderPath1} /></span>
@@ -98,7 +110,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
 
                         {!loader && dataFiles.map((files, index) => (
                             <tr key={`${files.name}-${index}`} >
-                                <td className='table-text'><FcFile className='margin-right-desktop' /> {files.name}</td>
+                                <td className='table-text' onDoubleClick={() => FilePreview(files.name)}><FcFile className='margin-right-desktop' /> {files.name}</td>
                                 <td>5 Feb 2020</td>
                                 <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFile(currentPath[currentPath.length - 1], files.name, setdataFiles, setError, setFolderPath1)} /></td>
                             </tr>
