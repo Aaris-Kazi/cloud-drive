@@ -26,11 +26,11 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
         previewPath = "/" + previewPath
     }
     const setFolderPath = async (path) => {
-        console.log("setfolder");
+
         // console.log(path);
         let supPath = currentPath[currentPath.length - 1];
         // console.log(supPath);
-        
+
 
 
         if (supPath === undefined) {
@@ -47,7 +47,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
                 up = [...prev, path]
             } else {
 
-                up = [...prev, supPath ]
+                up = [...prev, supPath]
             }
 
             // console.log(up);
@@ -69,7 +69,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
     }, []);
 
     const FilePreview = async (fileUrl) => {
-        window.open(config.BASE_URL + "/media/storage/" + username + previewPath +"/"+ fileUrl, "_blank", "noopener,noreferrer");
+        window.open(config.BASE_URL + "/media/storage/" + username + previewPath + "/" + fileUrl, "_blank", "noopener,noreferrer");
     };
 
     return (
