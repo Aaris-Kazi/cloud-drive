@@ -164,9 +164,9 @@ export const handleFileSubmit = async (superPath, filename, setShowPopup, setErr
     form.append("file", filename);
     form.append("folder", superPath);
 
-    console.log(filename.name);
-    console.log(filename);
-    console.log(superPath);
+    // console.log(filename.name);
+    // console.log(filename);
+    // console.log(superPath);
 
     const headers = {
         'Content-Type': 'multipart/form-data',

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Loader from "../Loader";
-import { FcFile, FcFolder } from "react-icons/fc";
+import { FcFolder } from "react-icons/fc";
 import { MdDeleteForever } from "react-icons/md";
 import NewFolderPopOver from "../NewFolderPopOver";
 import "../../pages/css/Home.css";
@@ -8,6 +8,7 @@ import BreadCrumbs from "../BreadCrumbs";
 import { getFiles, removeFolder, handleSubmit, handleFileSubmit, removeFile } from "../../utils/FolderOperations";
 import NewFilePopOver from "../NewFilePopOver";
 import config from "../../utils/config";
+import { FileCheck } from "../FileCheck";
 
 const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, setInputFileShowPopup, handleCloseFile }) => {
     const [loader, setLoader] = useState(false);
@@ -110,7 +111,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
 
                         {!loader && dataFiles.map((files, index) => (
                             <tr key={`${files.name}-${index}`} >
-                                <td className='table-text' onDoubleClick={() => FilePreview(files.name)}><FcFile className='margin-right-desktop' /> {files.name}</td>
+                                <td className='table-text' onDoubleClick={() => FilePreview(files.name)}>{FileCheck(files.name)} {files.name}</td>
                                 <td>5 Feb 2020</td>
                                 <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFile(currentPath[currentPath.length - 1], files.name, setdataFiles, setError, setFolderPath1)} /></td>
                             </tr>
