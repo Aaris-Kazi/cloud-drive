@@ -5,7 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import NewFolderPopOver from "../NewFolderPopOver";
 import "../../pages/css/Home.css";
 import BreadCrumbs from "../BreadCrumbs";
-import { getFiles, removeFolder, handleSubmit, handleFileSubmit } from "../../utils/FolderOperations";
+import { getFiles, removeFolder, handleSubmit, handleFileSubmit, removeFile } from "../../utils/FolderOperations";
 import NewFilePopOver from "../NewFilePopOver";
 
 const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, setInputFileShowPopup, handleCloseFile }) => {
@@ -100,7 +100,7 @@ const MyFiles = ({ setShowPopup, showPopup, handleClose, inputFileShowPopup, set
                             <tr key={`${files.name}-${index}`} >
                                 <td className='table-text'><FcFile className='margin-right-desktop' /> {files.name}</td>
                                 <td>5 Feb 2020</td>
-                                <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" /></td>
+                                <td className='table-text'>Aaris Kazi <MdDeleteForever className="del text-danger" onClick={() => removeFile(currentPath[currentPath.length - 1], files.name, setdataFiles, setError, setFolderPath1)} /></td>
                             </tr>
                         ))}
                     </tbody>

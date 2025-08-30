@@ -46,6 +46,19 @@ export const createDelete = async (endpoint, props, headers) => {
   }
 }
 
+export const createDeleteForm = async (endpoint, props, headers) => {
+  /*
+   * This method allows to post  API
+   */
+  try {
+    const response = await apiClient.delete(endpoint, { headers, data: props });
+    return response
+  } catch (error) {
+    console.error("Error Create webcleint:: ", error);
+    return error
+  }
+}
+
 export const fetch = async (endpoint) => {
   /*
    * This method allows to get or fetch API
